@@ -25,5 +25,12 @@
       "amount": 2000000000,
       "decimals": 9
     }
-  }
+  },
+  {
+    "blockId": 5941200,
+    "txId": "5boS5j2ZCpy94JPoiwr8d3kTQkV4R3oRa1eFZDhhDii45Y5xEojVafAyaMdoz8W9uGV99GmKSzRMzuVuZENmneSA",
+    "programId": "592fw8HNd6njPkNRjfbwG9qytTMvtjqEmDCT81GZGesQ",
+    "eventType": "OpenMysteryBox",
+    "decodedInstruction": {}
+  },
 ```

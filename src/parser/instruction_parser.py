@@ -38,13 +38,23 @@ def parse_event_type(program_id, instruction, account_keys, meta) -> Tuple[Text,
                 "destination": destination,
                 "amount": amount,
                 "decimals": decimals,
-            }  
+            } 
+    elif program_id in (
+        "721v6F7kPhKoysprtn5d41k6vUYjbsGsQcB4D3Ac8Goc",
+        "4MDghB3z9WY4NTy4gZQhH8rZ73ztWFhRPCX32zogohfu",
+        "592fw8HNd6njPkNRjfbwG9qytTMvtjqEmDCT81GZGesQ",
+        "FrFwm1G7uyapKegzPmaFknv38nUGMbomTiy2a2dvZx97",
+        "CW6W21fRa6VRKYnVEyxyGp3vx6r5ov8dG2NxAYeGngFw",
+        "7d1jRjkvgfZ55jTjfaTXeG8hoaHFuMnSsQi3QF5g9PcT",
+    ):
+        decoded = base58.b58decode(instruction.get("data"))
+        cmd = decoded[0:8]
+        if cmd == b'\xe1!\xc6\x01Z\x83>Z':  
+            return "OpenMysteryBox",  {}
     else:
-       return "UnknownInstruction", {}
-       
-    
-       
-        
+       return "UnknownInstruction", {} 
+
+              
 def parse_instruction_from_block(block, source="sonic_testnet"):
   responses = []
   transactions = block.get("transactions")
@@ -60,6 +70,7 @@ def parse_instruction_from_block(block, source="sonic_testnet"):
         response["txId"] = signatures[0] if signatures else ""
         # response["signer"] = 
         response["programId"] = account_keys[programIdIndex]
+        response["accounts"] = [account_keys[x] for x in instruction.get("accounts")]
         event_type, decodedInstruction = parse_event_type(response["programId"], instruction, account_keys, meta)
         response["eventType"] = event_type
         response["decodedInstruction"] = decodedInstruction
