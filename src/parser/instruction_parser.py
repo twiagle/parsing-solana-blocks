@@ -1,4 +1,3 @@
-from pydoc import describe
 from typing import Dict, Tuple, Text
 import base58
 import struct
